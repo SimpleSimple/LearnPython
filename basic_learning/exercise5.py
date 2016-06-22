@@ -23,10 +23,11 @@ req = urllib.request.Request(url)
 page = urllib.request.urlopen(req)
 html = page.read().decode('gbk', 'ignore')
 
-link_reg = r'<a.*?href="(.+)".*?>(.*?)</a>'
+link_reg = r'<a.*?href="([^"]*)".*?>[\S\s]*?</a>'
+
 linkre = re.compile(link_reg)
 linklist = re.findall(linkre, html)
-print(linklist)
+print('\n'.join(linklist))
 
 
 # 图片爬取
