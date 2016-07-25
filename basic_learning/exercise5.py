@@ -9,6 +9,7 @@ import re, os
 # url = "http://www.meizitu.com/a/4674.html"
 # url = "http://tu.duowan.com/m/meinv/"
 url = "http://www.zhihu.com/explore#monthly-hot"
+domain = "http://www.zhihu.com"
 # headers = {
 #     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
 #     "Accept-Encoding": "gzip, deflate, sdch",
@@ -27,27 +28,14 @@ link_reg = r'<a.*?href="([^"]*)".*?>[\S\s]*?</a>'
 
 linkre = re.compile(link_reg)
 linklist = re.findall(linkre, html)
-print('\n'.join(linklist))
+# print('\n'.join(linklist))
 
-
-# 图片爬取
-# reg = r'src="(.+?\.jpg)"'
-# imgre = re.compile(reg)
-# imglist = re.findall(imgre, html)
-#
-# targetDir = r'F:\pic'
-#
-# for imgurl in imglist:
-#     pos = imgurl.rindex('/')
-#     t = os.path.join(targetDir, imgurl[pos+1:])
-#     print("fileurl:" + imgurl + " filename:"+t)
-#     # with open(t, 'wb') as file:
-#     #     file.write(imgurl.encode('utf-8'))
-#     try:
-#         urllib.request.urlretrieve(imgurl, t)
-#     except:
-#         print("IOError")
-
-
-
+f = open("url.txt", 'wb+')
+for link in linklist:
+    if link=="/" or link=="javascript:;" or link=="#":
+        continue
+    if link.find("question") >= 0 and link.find("answer") < 0:
+        fulllink = domain+link
+        print(fulllink)
+        f.write(bytes(fulllink+'\r\n', 'UTF-8'))
 
