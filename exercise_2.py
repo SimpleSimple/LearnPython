@@ -23,3 +23,7 @@ for x in range(1,11):
 
 print(L)
 
+
+list = ['a', 'b','c','d','e']
+str_convert = ' '.join(list)
+print(str_convert)
